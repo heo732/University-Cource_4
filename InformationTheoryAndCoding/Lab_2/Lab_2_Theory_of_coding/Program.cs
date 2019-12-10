@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Lab_2_Theory_of_coding
 {
-    class Program
+    public class Program
     {
-        
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
-            Console.InputEncoding = System.Text.Encoding.Unicode;
 
-            int Np = 4, n = 3; //Np - кількість робочих комбінацій, n - довжина коду
+            // Кількість робочих комбінацій.
+            int Np = 4;
+            // Довжина коду.
+            int n = 3;
+
             Console.WriteLine("Кодові комбінації:\n V1=001;\n V2=010;\n V3=011;\n V4=100; ");
             int[] V1 = { 0, 0, 1 };
             int[] V2 = { 0, 1, 0 };
@@ -156,7 +152,7 @@ namespace Lab_2_Theory_of_coding
             double[] knp = new double[d1.Length];
             for (int i = 0; i < d1.Length; i++)
             {
-                Cnd[i] = Fact(n) / (Fact(d1[i]) * Fact(n - d1[i]));
+                Cnd[i] = Factorial(n) / (Factorial(d1[i]) * Factorial(n - d1[i]));
                 knp[i] += (NPi1[i] / Cnd[i]);
                 knp[i] *= 0.25;
                 Console.WriteLine(knp[i]);
@@ -174,13 +170,12 @@ namespace Lab_2_Theory_of_coding
             Console.ReadLine();
         }
 
-                                                                                                                                                                                            static long Fact(int n) //функція обчислення факторіалу
-                                                                                                                                                                                            {
-                                                                                                                                                                                                long x = 1;
-                                                                                                                                                                                                for (int i = 1; i <= n; i++)
-                                                                                                                                                                                                    x *= i;
-                                                                                                                                                                                                return x;
-                                                                                                                                                                                            }
-
+        private static long Factorial(int n)
+        {
+            long x = 1;
+            for (int i = 1; i <= n; i++)
+                x *= i;
+            return x;
+        }
     }
 }
