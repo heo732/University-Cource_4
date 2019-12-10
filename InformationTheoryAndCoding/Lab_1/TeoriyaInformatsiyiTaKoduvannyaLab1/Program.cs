@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TeoriyaInformatsiyiTaKoduvannyaLab1
 {
@@ -10,37 +7,28 @@ namespace TeoriyaInformatsiyiTaKoduvannyaLab1
     {
         static void Main(string[] args)
         {
-
-            Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
 
-            int N = 4;
-            double[,] P = new double[N, N];
+            int N = 3;
+            var P = new double[N, N];
 
-            double[] pA = new double[N];
-            double[] pB = new double[N];
+            var pA = new double[N];
+            var pB = new double[N];
 
-            double HA = 0, HB = 0;
+            double HA = 0;
+            double HB = 0;
 
-            P[0, 0] = 0.27;
-            P[0, 1] = 0.01;
-            P[0, 2] = 0.07;
-            P[0, 3] = 0.04;
+            P[0, 0] = 0.17;
+            P[0, 1] = 0.2;
+            P[0, 2] = 0.0;
             
-            P[1, 0] = 0;
-            P[1, 1] = 0.1;
-            P[1, 2] = 0.04;
-            P[1, 3] = 0.02;
+            P[1, 0] = 0.2;
+            P[1, 1] = 0.0;
+            P[1, 2] = 0.0;
 
-            P[2, 0] = 0.02;
-            P[2, 1] = 0.03;
-            P[2, 2] = 0.1;
-            P[2, 3] = 0;
-
-            P[3, 0] = 0.07;
-            P[3, 1] = 0.02;
-            P[3, 2] = 0.11;
-            P[3, 3] = 0.1;
+            P[2, 0] = 0.03;
+            P[2, 1] = 0.15;
+            P[2, 2] = 0.25;
 
             Console.WriteLine("Матриця сумісних ймовірностей \n");
 
