@@ -2,91 +2,90 @@
 #   два вектори однаковоњ довжини та назву методу, за допомогою €кого  буде знайдена 
 #   в≥дстань м≥ж двома векторами. ‘ункц≥€ повинна реал≥зувати пТ€ть в≥дстаней.
 
-x <- c(2, 4, 1);
-y <- c(1, 3, 2);
+x = c(2, 4, 1);
+y = c(1, 3, 2);
 
 #≈вкл≥дова в≥дстань
-Euclidian <- function(x, y)
+Euclidian = function(x, y)
 {
     return(sqrt(sum((x - y) * (x - y))));
 }
 
 #ћ≥нковського (Mod - модуль)
-p <- 2; #параметр дл€ в≥дстан≥ ћ≥нковського
-Minkowski <- function(x, y, p)
+p = 2; #параметр дл€ в≥дстан≥ ћ≥нковського
+Minkowski = function(x, y, p)
 {
     return((sum(Mod(x - y) ^ p)) ^ (1 / p));
 }
 
 #ћанхетенська
-Manhattan <- function(x, y)
+Manhattan = function(x, y)
 {
     return(sum(Mod(x - y)));
 }
 
 #„ебишева
-Chebyshev <- function(x, y)
+Chebyshev = function(x, y)
 {
     return(max(Mod(x - y)));
 }
 
 #ћахаланоб≥са
-W <- rbind(c(1, 0, 0), c(0, 1, 0), c(0, 0, 1)); #одинична матриц€ (W Ц додатньо-визначена матриц€ (додатковий параметр функц≥њ)) 
-MahalanobisD <- function(x, y, W)
+W = rbind(c(1, 0, 0), c(0, 1, 0), c(0, 0, 1)); #одинична матриц€ (W Ц додатньо-визначена матриц€ (додатковий параметр функц≥њ)) 
+MahalanobisD = function(x, y, W)
 {
-    A <- x - y; #р≥зниц€ ветор≥в
-    TA <- t(A); #транспонуванн€ вектора ј
-    res <- TA %*% W %*% A; #множимо транспонований вектор на одиничну матрицю ≥ на р≥зницю вектор≥в 
+    A = x - y; #р≥зниц€ ветор≥в
+    TA = t(A); #транспонуванн€ вектора ј
+    res = TA %*% W %*% A; #множимо транспонований вектор на одиничну матрицю ≥ на р≥зницю вектор≥в 
     return(res);
 }
 
 
 #¬ив≥д в≥дстаней по номеру
 
-ShowDistance <- function(x, y, n = 1, p = 2, W = NA)
+ShowDistance = function(x, y, n = 1, p = 2, W = NA)
 {
-    x <- switch(n,
+    x = switch(n,
        Euclidian(x, y),
        Minkowski(x, y, p),
        Manhattan(x, y),
        Chebyshev(x, y),
-       MahalanobisD(x, y, W)
-           );
+       MahalanobisD(x, y, W));
     return(x);
 }
 
 #2. ¬икористовуючи функц≥њ з п.1, написати функц≥ю дл€ обчисленн€ 
 #   матриц≥ в≥дстаней N обТЇкт≥в
 
-MD <- function(X, c = "1", p = NA, W = NA)
+MD = function(X, c = "1", p = NA, W = NA)
 {
     #X= matrix(c(1, 1, 2, 1, 2, 3, 1, 2, 3), nrow = 3, ncol = 3)
 
     N = dim(X)[1];
-    result <- matrix(NA, nrow = N, ncol = N); #пуста матриц€ дл€ результату
+    result = matrix(NA, nrow = N, ncol = N); #пуста матриц€ дл€ результату
     for (i in 1:N)
     {
         for (j in 1:N)
         {
             if (c == "1")
             {
-                result[i, j] <- Euclidian(X[i,], X[j,]);
+                result[i, j] = Euclidian(X[i,], X[j,]);
             }
             if (c == "2")
             {
-                result[i, j] <- Minkowski(X[i,], X[j,], p);
+                result[i, j] = Minkowski(X[i,], X[j,], p);
             }
             if (c == "3")
             {
-                result[i, j] <- Manhattan(X[i,], X[j,]);
+                result[i, j] = Manhattan(X[i,], X[j,]);
             }
             if (c == "4")
             {
-                result[i, j] <- Chebyshev(X[i,], X[j,]);
+                result[i, j] = Chebyshev(X[i,], X[j,]);
             }
             if (c == "5")
             {
-                result[i, j] <- MahalanobisD(X[i,], X[j,], W);
+                result[i, j] = MahalanobisD(X[i,], X[j,], W);
             }
         }
     }
@@ -96,19 +95,19 @@ MD <- function(X, c = "1", p = NA, W = NA)
 
 #2.2 ѕобудувати матрицю схожост≥
 
-MS <- function(X, p = NA, W = NA) #матриц€ под≥бност≥ (Matrix Similarity)
+MS = function(X, p = NA, W = NA) #матриц€ под≥бност≥ (Matrix Similarity)
 {
     #X= matrix(c(1, 1, 2, 1, 2, 3, 1, 2, 3), nrow = 3, ncol = 3)
     MDR = MD(X);
 
     N = dim(X)[1];
 
-    result <- matrix(NA, nrow = N, ncol = N);
+    result = matrix(NA, nrow = N, ncol = N);
     for (i in 1:N)
     {
-        M <- max(MDR[i,]);
-        m <- min(MDR[i,]);
-        result[i,] <- 1 - (MDR[i,] - m) / (M - m);
+        M = max(MDR[i,]);
+        m = min(MDR[i,]);
+        result[i,] = 1 - (MDR[i,] - m) / (M - m);
     }
 
     return(result);
@@ -120,23 +119,23 @@ MS <- function(X, p = NA, W = NA) #матриц€ под≥бност≥ (Matrix Similarity)
 #   на граф≥ку та побудувати матрицю в≥дстаней дл€ даного двовим≥рного масиву. 
 
 # двовим≥рна матриц€ згенерована з допомогою показникового розпод≥лу
-Mat <- matrix(rexp(20, rate = 0.6), 10, 2);
+Mat = matrix(rexp(20, rate = 0.6), 10, 2);
 plot(Mat);
 
-Rs <- function(Mat, c = "1", p = NA, W = NA)
+Rs = function(Mat, c = "1", p = NA, W = NA)
 {
     N = dim(Mat)[1];
-    result <- matrix(NA, N, N);
+    result = matrix(NA, N, N);
 
     for (i in 1:N)
     {
         for (j in 1:N)
         {
-            if (c == "1") { result[i, j] <- Euclidian(Mat[i,], Mat[j,]); }
-            if (c == "2") { result[i, j] <- Minkowski(Mat[i,], Mat[j,], p); }
-            if (c == "3") { result[i, j] <- Manhattan(Mat[i,], Mat[j,]); }
-            if (c == "4") { result[i, j] <- Chebyshev(Mat[i,], Mat[j,]); }
-            if (c == "5") { result[i, j] <- MahalanobisD(Mat[i,], Mat[j,], W); }
+            if (c == "1") { result[i, j] = Euclidian(Mat[i,], Mat[j,]); }
+            if (c == "2") { result[i, j] = Minkowski(Mat[i,], Mat[j,], p); }
+            if (c == "3") { result[i, j] = Manhattan(Mat[i,], Mat[j,]); }
+            if (c == "4") { result[i, j] = Chebyshev(Mat[i,], Mat[j,]); }
+            if (c == "5") { result[i, j] = MahalanobisD(Mat[i,], Mat[j,], W); }
         }
     }
 
