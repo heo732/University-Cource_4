@@ -1,49 +1,30 @@
-install.packages("ggplot2")
-install.packages("dplyr")
-install.packages("MASS")
-install.packages("cluster")
-install.packages("factoextra")
-install.packages("ape")
-install.packages("mva")
-install.packages("caret")
-install.packages("e1071")
-library("ggplot2")
-library("cluster")
-library("MASS")
-library("dplyr")
-library("factoextra")
-library("ape")
-library("mva")
-library("caret")
-library(e1071)
-install.packages("combinat")
-library("combinat")
+mu1 = c(1, 1);
+mu2 = c(1, -9);
+mu3 = c(-7, -2);
 
+cov1 = rbind(c(1, 1), c(1, 2));
+cov2 = rbind(c(1, -1), c(-1, 2));
+cov3 = rbind(c(2, 0.5), c(0.5, 0.3));
 
-#1. «генерувати 3 множини нормально розпод≥лених випадкових чисел в R^2 з 
-#   середн≥ми та ковар≥ац≥йними матриц€ми 
-# ≥льк≥сть точок в кожному набор≥ повинна бути однаковою 
+N = 100;
 
-m1 = c(1, 1)
-E1 = rbind(c(1, 1), c(1, 2)) #ковар≥ац≥йн≥ матриц≥ 
+x1 = MASS::mvrnorm(n = N, mu = mu1, Sigma = cov1, empirical = TRUE);
+x2 = MASS::mvrnorm(n = N, mu = mu2, Sigma = cov2, empirical = TRUE);
+x3 = MASS::mvrnorm(n = N, mu = mu3, Sigma = cov3, empirical = TRUE);
 
+par(mar = c(5, 5, 5, 5), xpd = TRUE);
+plot(NULL, xlim = c(-11, 5), ylim = c(-13, 5),
+    xlab = "ѕерша координата", ylab = "ƒруга координата");
+rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = "gray");
+grid(lty = 1, col = "white");
+lines(x1, type = "p", col = "red", pch = 20);
+lines(x2, type = "p", col = "green", pch = 20);
+lines(x3, type = "p", col = "blue", pch = 20);
+legend("right", inset = c(-0.2, 0), legend = c("1", "2", "3"),
+    col = c("red", "green", "blue"), pch = 20, title = "group",
+    box.lty = 0, border = 0);
 
-m2 = c(1, -9)
-E2 = rbind(c(1, -1), c(-1, 2))
-
-m3 = c(-7, -2)
-E3 = rbind(c(2, 0.5), c(0.5, 0.3))
-
-#побудувати 3 виб≥рки з багатовим≥рного нормального розпод≥лу
-a1 = mvrnorm(n = 100, mu = m1, Sigma = E1, tol = 1e-6, empirical = TRUE, EISPACK = FALSE)
-a2 = mvrnorm(n = 100, mu = m2, Sigma = E2, tol = 1e-6, empirical = TRUE, EISPACK = FALSE)
-a3 = mvrnorm(n = 100, mu = m3, Sigma = E3, tol = 1e-6, empirical = TRUE, EISPACK = FALSE)
-
-
-plot(a1, type = "p", col = "green", xlim = c(-10, 6), ylim = c(-15, 10))
-lines(a2, type = "p", col = "yellow")
-lines(a3, type = "p", col = "red")
-
+#=====================================================================================
 
 # 2. ¬икористовуючи метод k Ц середн≥х з трьома випадковими початковими центрами, 
 #побудувати кластери дл€ вс≥х виб≥рок з 3N точками дл€ k=2,3,4
