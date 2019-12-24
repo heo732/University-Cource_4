@@ -10,9 +10,9 @@ cov3 = rbind(c(2, 0.5), c(0.5, 0.3));
 
 N = 100;
 
-x1 = MASS::mvrnorm(n = N, mu = mu1, Sigma = cov1, empirical = TRUE);
-x2 = MASS::mvrnorm(n = N, mu = mu2, Sigma = cov2, empirical = TRUE);
-x3 = MASS::mvrnorm(n = N, mu = mu3, Sigma = cov3, empirical = TRUE);
+x1 = MASS::mvrnorm(n = N, mu = mu1, Sigma = cov1);
+x2 = MASS::mvrnorm(n = N, mu = mu2, Sigma = cov2);
+x3 = MASS::mvrnorm(n = N, mu = mu3, Sigma = cov3);
 
 par(mar = c(5, 5, 5, 5), xpd = TRUE);
 plot(NULL, xlim = c(-11, 5), ylim = c(-13, 5),
@@ -33,8 +33,8 @@ legend("right", inset = c(-0.2, 0), legend = c("1", "2", "3"),
 V = data.frame(c(x1[, 1], x2[, 1], x3[, 1]),
                c(x1[, 2], x2[, 2], x3[, 2]));
 
-A1 = kmeans(V, centers = 2, iter.max = 10, nstart = 1);
-A2 = kmeans(V, centers = 3, iter.max = 10, nstart = 1);
+A1 = kmeans(V, centers = 3, iter.max = 10, nstart = 1);
+A2 = kmeans(V, centers = 2, iter.max = 10, nstart = 1);
 A3 = kmeans(V, centers = 4, iter.max = 10, nstart = 1);
 
 plot(V, type = "p", col = A1$cluster);
