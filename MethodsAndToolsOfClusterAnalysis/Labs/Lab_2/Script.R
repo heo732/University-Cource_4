@@ -50,9 +50,7 @@ lines(A3$centers, type = "p", col = "blue");
 
 # 3
 
-d = dist(V, method = "euclidean");
-
-H1 = hclust(d);
+H1 = hclust(dist(V, method = "euclidean"));
 
 sub_grp = cutree(H1, k = 3);
 
