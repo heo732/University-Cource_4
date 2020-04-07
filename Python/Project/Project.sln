@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Project", "Project.pyproj", "{CD5EF751-5B20-41E0-8AA9-5270F3FB427C}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyWpf", "PyWpf\PyWpf.pyproj", "{CD5EF751-5B20-41E0-8AA9-5270F3FB427C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
