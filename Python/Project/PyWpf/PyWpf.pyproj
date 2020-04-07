@@ -25,7 +25,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Command.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\MainWindowViewModel.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewModels\ViewModelBase.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\__init__.py">
