@@ -4,7 +4,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..\\..\\..\\Project"))
 from ViewModels.ViewModelBase import ViewModelBase
 from Command import Command
 from ConvertersLogic.Enums.Temperature import Temperature
+from ConvertersLogic.Enums.Mass import Mass
 from ConvertersLogic.Converters.TemperatureConverter import TemperatureConverter
+from ConvertersLogic.Converters.MassConverter import MassConverter
 from System.Windows import MessageBox
 
 class MainWindowViewModel(ViewModelBase):
@@ -18,4 +20,4 @@ class MainWindowViewModel(ViewModelBase):
         self.RaisePropertyChanged("WindowTitle")
 
     def show(self):
-        MessageBox.Show(str(TemperatureConverter().convert(6.85, Temperature.Celsius, Temperature.Kelvin)))
+        MessageBox.Show(str(MassConverter().convert(10051, Mass.Ounce, Mass.Gram)))
