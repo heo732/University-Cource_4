@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyWpf", "PyWpf\PyWpf.pyproj", "{CD5EF751-5B20-41E0-8AA9-5270F3FB427C}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ConvertersLogic", "ConvertersLogic\ConvertersLogic.pyproj", "{653CBF13-BD40-408E-8334-642CABE732A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CD5EF751-5B20-41E0-8AA9-5270F3FB427C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD5EF751-5B20-41E0-8AA9-5270F3FB427C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{653CBF13-BD40-408E-8334-642CABE732A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{653CBF13-BD40-408E-8334-642CABE732A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

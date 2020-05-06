@@ -72,6 +72,13 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConvertersLogic\ConvertersLogic.pyproj">
+      <Name>ConvertersLogic</Name>
+      <Project>{653cbf13-bd40-408e-8334-642cabe732a4}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
