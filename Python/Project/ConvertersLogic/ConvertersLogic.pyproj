@@ -22,10 +22,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Converters\MassConverter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Converters\TemperatureConverter.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\Mass.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums\Temperature.py">
