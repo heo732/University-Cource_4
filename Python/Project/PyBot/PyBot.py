@@ -23,6 +23,7 @@ currentCurrencyOutputUnit = "UAH"
 str_SomethingWrong = "Something wrong."
 str_InputUnitPrefix = "in_"
 str_OutputUnitPrefix = "out_"
+str_ChangingPrefix = "#"
 
 str_Temperature = "Temperature"
 str_Mass = "Mass"
@@ -50,12 +51,12 @@ def getOutputUnitChangedString(unit, converter):
 
 def getKeyboardMarkup_Converters():
     markup = ReplyKeyboardMarkup()
-    markup.row(str_Temperature, str_Mass, str_Currency)
+    markup.row(str_ChangingPrefix + str_Temperature, str_ChangingPrefix + str_Mass, str_ChangingPrefix + str_Currency)
     return markup
 
 def getKeyboardMarkup_TemperatureUnits(prefix):
     markup = ReplyKeyboardMarkup()
-    markup.row(prefix + str_Celsius, prefix + str_Fahrenheit, prefix + str_Kelvin)
+    markup.row(str_ChangingPrefix + prefix + str_Celsius, str_ChangingPrefix + prefix + str_Fahrenheit, str_ChangingPrefix + prefix + str_Kelvin)
     return markup
 
 @bot.message_handler(commands=["converter"])
@@ -63,12 +64,12 @@ def selectConverterType(message):
     try:
         bot.send_message(message.chat.id, "Select converter type:", reply_markup=getKeyboardMarkup_Converters())
     except Exception as e:
-        bot.send_message(message.chat.id, e)
+        bot.send_message(message.chat.id, e, reply_markup=ReplyKeyboardRemove())
 
 @bot.message_handler(commands=["input_unit"])
 def selectInputUnit(message):
     try:
-        markup = None
+        markup = ReplyKeyboardRemove()
 
         if type(currentConverter) is TemperatureConverter:
             markup = getKeyboardMarkup_TemperatureUnits(str_InputUnitPrefix)
@@ -79,16 +80,16 @@ def selectInputUnit(message):
             #markup = getKeyboardMarkup_CurrencyUnits(str_InputUnitPrefix)
             pass
         else:
-            bot.send_message(message.chat.id, str_SomethingWrong)
+            bot.send_message(message.chat.id, str_SomethingWrong, reply_markup=markup)
 
         bot.send_message(message.chat.id, "Select input unit:", reply_markup=markup)
     except Exception as e:
-        bot.send_message(message.chat.id, e)
+        bot.send_message(message.chat.id, e, reply_markup=ReplyKeyboardRemove())
 
 @bot.message_handler(commands=["output_unit"])
 def selectOutputUnit(message):
     try:
-        markup = None
+        markup = ReplyKeyboardRemove()
 
         if type(currentConverter) is TemperatureConverter:
             markup = getKeyboardMarkup_TemperatureUnits(str_OutputUnitPrefix)
@@ -99,11 +100,11 @@ def selectOutputUnit(message):
             #markup = getKeyboardMarkup_CurrencyUnits(str_OutputUnitPrefix)
             pass
         else:
-            bot.send_message(message.chat.id, str_SomethingWrong)
+            bot.send_message(message.chat.id, str_SomethingWrong, reply_markup=markup)
 
         bot.send_message(message.chat.id, "Select input unit:", reply_markup=markup)
     except Exception as e:
-        bot.send_message(message.chat.id, e)
+        bot.send_message(message.chat.id, e, reply_markup=ReplyKeyboardRemove())
 
 @bot.message_handler(content_types=["text"])
 def sendAnswer(message):
@@ -133,12 +134,13 @@ def sendAnswer(message):
                 inputUnit = str(currentCurrencyInputUnit)
                 outputUnit = str(currentCurrencyOutputUnit)
             else:
-                bot.send_message(message.chat.id, str_SomethingWrong)
+                bot.send_message(message.chat.id, str_SomethingWrong, reply_markup=ReplyKeyboardRemove())
                 return
 
             bot.send_message(message.chat.id, "Converter: " + converter + "\n" + "Input unit: " + inputUnit + "\n" + "Output unit: " + outputUnit + "\n" + "Input value: " + m + "\n" + "Output value: " + outputValue, reply_markup=ReplyKeyboardRemove())
-        else:
+        elif len(m) >= len(str_ChangingPrefix) and m.startswith(str_ChangingPrefix):
             what_changed_str = ""
+            m = m[len(str_ChangingPrefix):len(m)]
 
             if m == str_Temperature:
                 currentConverter = TemperatureConverter()
@@ -174,6 +176,6 @@ def sendAnswer(message):
 
             bot.send_message(message.chat.id, what_changed_str, reply_markup=ReplyKeyboardRemove())
     except Exception as e:
-        bot.send_message(message.chat.id, e)
+        bot.send_message(message.chat.id, e, reply_markup=ReplyKeyboardRemove())
 
 bot.polling(none_stop=True)
