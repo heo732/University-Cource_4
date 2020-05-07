@@ -2,7 +2,7 @@ import os, sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "..\\..\\Project"))
 
 import telebot
-from telebot.types import ReplyKeyboardMarkup
+from telebot.types import ReplyKeyboardMarkup, ReplyKeyboardRemove
 from ConvertersLogic.Enums.Temperature import Temperature
 from ConvertersLogic.Converters.TemperatureConverter import TemperatureConverter
 from ConvertersLogic.Enums.Mass import Mass
@@ -58,14 +58,14 @@ def getKeyboardMarkup_TemperatureUnits(prefix):
     markup.row(prefix + str_Celsius, prefix + str_Fahrenheit, prefix + str_Kelvin)
     return markup
 
-@bot.message_handler(commands=["selectConverterType"])
+@bot.message_handler(commands=["converter"])
 def selectConverterType(message):
     try:
         bot.send_message(message.chat.id, "Select converter type:", reply_markup=getKeyboardMarkup_Converters())
     except Exception as e:
         bot.send_message(message.chat.id, e)
 
-@bot.message_handler(commands=["selectInputUnit"])
+@bot.message_handler(commands=["input_unit"])
 def selectInputUnit(message):
     try:
         markup = None
@@ -85,7 +85,7 @@ def selectInputUnit(message):
     except Exception as e:
         bot.send_message(message.chat.id, e)
 
-@bot.message_handler(commands=["selectOutputUnit"])
+@bot.message_handler(commands=["output_unit"])
 def selectOutputUnit(message):
     try:
         markup = None
@@ -136,7 +136,7 @@ def sendAnswer(message):
                 bot.send_message(message.chat.id, str_SomethingWrong)
                 return
 
-            bot.send_message(message.chat.id, "Converter: " + converter + "\n" + "Input unit: " + inputUnit + "\n" + "Output unit: " + outputUnit + "\n" + "Input value: " + m + "\n" + "Output value: " + outputValue)
+            bot.send_message(message.chat.id, "Converter: " + converter + "\n" + "Input unit: " + inputUnit + "\n" + "Output unit: " + outputUnit + "\n" + "Input value: " + m + "\n" + "Output value: " + outputValue, reply_markup=ReplyKeyboardRemove())
         else:
             what_changed_str = ""
 
@@ -172,7 +172,7 @@ def sendAnswer(message):
             else:
                 return
 
-            bot.send_message(message.chat.id, what_changed_str)
+            bot.send_message(message.chat.id, what_changed_str, reply_markup=ReplyKeyboardRemove())
     except Exception as e:
         bot.send_message(message.chat.id, e)
 
