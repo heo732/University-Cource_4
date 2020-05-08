@@ -53,7 +53,7 @@ def getKeyboardMarkup_Converters():
 
 def getKeyboardMarkup_TemperatureUnits(prefix):
     markup = ReplyKeyboardMarkup()
-    markup.row(str_ChangingPrefix + prefix + Temperature.Celsius, str_ChangingPrefix + prefix + Temperature.Fahrenheit, str_ChangingPrefix + prefix + Temperature.Kelvin)
+    markup.row(*list(map(lambda x: str_ChangingPrefix + prefix + str(x), Temperature().__dir__())))
     return markup
 
 @bot.message_handler(commands=["converter"])
