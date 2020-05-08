@@ -56,6 +56,12 @@ def getKeyboardMarkup_TemperatureUnits(prefix):
     markup.row(*list(map(lambda x: str_ChangingPrefix + prefix + str(x), Temperature().__dir__())))
     return markup
 
+def getKeyboardMarkup_MassUnits(prefix):
+    markup = ReplyKeyboardMarkup()
+    markup.row_width = 3
+    markup.add(*list(map(lambda x: str_ChangingPrefix + prefix + str(x), Mass().__dir__())))
+    return markup
+
 @bot.message_handler(commands=["converter"])
 def selectConverterType(message):
     try:
@@ -71,8 +77,7 @@ def selectInputUnit(message):
         if type(currentConverter) is TemperatureConverter:
             markup = getKeyboardMarkup_TemperatureUnits(str_InputUnitPrefix)
         elif type(currentConverter) is MassConverter:
-            #markup = getKeyboardMarkup_MassUnits(str_InputUnitPrefix)
-            pass
+            markup = getKeyboardMarkup_MassUnits(str_InputUnitPrefix)
         elif type(currentConverter) is CurrencyRates:
             #markup = getKeyboardMarkup_CurrencyUnits(str_InputUnitPrefix)
             pass
@@ -91,8 +96,7 @@ def selectOutputUnit(message):
         if type(currentConverter) is TemperatureConverter:
             markup = getKeyboardMarkup_TemperatureUnits(str_OutputUnitPrefix)
         elif type(currentConverter) is MassConverter:
-            #markup = getKeyboardMarkup_MassUnits(str_OutputUnitPrefix)
-            pass
+            markup = getKeyboardMarkup_MassUnits(str_OutputUnitPrefix)
         elif type(currentConverter) is CurrencyRates:
             #markup = getKeyboardMarkup_CurrencyUnits(str_OutputUnitPrefix)
             pass
