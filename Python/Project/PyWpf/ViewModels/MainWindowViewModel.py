@@ -25,7 +25,7 @@ class MainWindowViewModel(ViewModelBase):
         try:
             inputUnitTemperature = Temperature().__dir__()[self.SelectedIndex_InputUnitTemperature]
             outputUnitTemperature = Temperature().__dir__()[self.SelectedIndex_OutputUnitTemperature]
-            self.OutputValueTemperature = TemperatureConverter().convert(float(self.InputValueTemperature), inputUnitTemperature, outputUnitTemperature)
+            self.OutputValueTemperature = round(TemperatureConverter().convert(float(self.InputValueTemperature), inputUnitTemperature, outputUnitTemperature), 3)
         except Exception:
             self.OutputValueTemperature = "NaN"
         self.RaisePropertyChanged("OutputValueTemperature")
@@ -34,7 +34,7 @@ class MainWindowViewModel(ViewModelBase):
         try:
             inputUnitMass = Mass().__dir__()[self.SelectedIndex_InputUnitMass]
             outputUnitMass = Mass().__dir__()[self.SelectedIndex_OutputUnitMass]
-            self.OutputValueMass = MassConverter().convert(float(self.InputValueMass), inputUnitMass, outputUnitMass)
+            self.OutputValueMass = round(MassConverter().convert(float(self.InputValueMass), inputUnitMass, outputUnitMass), 3)
         except Exception:
             self.OutputValueMass = "NaN"
         self.RaisePropertyChanged("OutputValueMass")
