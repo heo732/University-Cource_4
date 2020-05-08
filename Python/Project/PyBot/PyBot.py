@@ -125,17 +125,17 @@ def sendAnswer(message):
 
         if is_number:
             if type(currentConverter) is TemperatureConverter:
-                outputValue = str(currentConverter.convert(float(m), currentTemperatureInputUnit, currentTemperatureOutputUnit))
+                outputValue = currentConverter.convert(float(m), currentTemperatureInputUnit, currentTemperatureOutputUnit)
                 converter = str_Temperature
                 inputUnit = str(currentTemperatureInputUnit)
                 outputUnit = str(currentTemperatureOutputUnit)
             elif type(currentConverter) is MassConverter:
-                outputValue = str(currentConverter.convert(float(m), currentMassInputUnit, currentMassOutputUnit))
+                outputValue = currentConverter.convert(float(m), currentMassInputUnit, currentMassOutputUnit)
                 converter = str_Mass
                 inputUnit = str(currentMassInputUnit)
                 outputUnit = str(currentMassOutputUnit)
             elif type(currentConverter) is CurrencyRates:
-                outputValue = str(currentConverter.convert(currentCurrencyInputUnit, currentCurrencyOutputUnit, float(m)))
+                outputValue = currentConverter.convert(currentCurrencyInputUnit, currentCurrencyOutputUnit, float(m))
                 converter = str_Currency
                 inputUnit = str(currentCurrencyInputUnit)
                 outputUnit = str(currentCurrencyOutputUnit)
@@ -143,7 +143,7 @@ def sendAnswer(message):
                 bot.send_message(message.chat.id, str_SomethingWrong, reply_markup=ReplyKeyboardRemove())
                 return
 
-            bot.send_message(message.chat.id, "Converter: " + converter + "\n" + "Input unit: " + inputUnit + "\n" + "Output unit: " + outputUnit + "\n" + "Input value: " + m + "\n" + "Output value: " + outputValue, reply_markup=ReplyKeyboardRemove())
+            bot.send_message(message.chat.id, "Converter: " + converter + "\n" + "Input unit: " + inputUnit + "\n" + "Output unit: " + outputUnit + "\n" + "Input value: " + str(float(m)) + "\n" + "Output value: " + str(round(outputValue, 3)), reply_markup=ReplyKeyboardRemove())
         elif len(m) >= len(str_ChangingPrefix) and m.startswith(str_ChangingPrefix):
             what_changed_str = ""
             m = m[len(str_ChangingPrefix):len(m)]
