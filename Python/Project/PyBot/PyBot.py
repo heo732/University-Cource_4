@@ -18,7 +18,8 @@ currentTemperatureOutputUnit = Temperature.Celsius
 currentMassInputUnit = Mass.Pound
 currentMassOutputUnit = Mass.Kilogram
 currentCurrencyInputUnit = "USD"
-currentCurrencyOutputUnit = "UAH"
+currentCurrencyOutputUnit = "EUR"
+currencies = ["USD", "EUR"]
 
 str_SomethingWrong = "Something wrong."
 str_InputUnitPrefix = "in_"
@@ -28,10 +29,6 @@ str_ChangingPrefix = "#"
 str_Temperature = "Temperature"
 str_Mass = "Mass"
 str_Currency = "Currency"
-
-str_Celsius = "Celsius"
-str_Fahrenheit = "Fahrenheit"
-str_Kelvin = "Kelvin"
 
 def isNumber(s):
     try:
@@ -56,7 +53,7 @@ def getKeyboardMarkup_Converters():
 
 def getKeyboardMarkup_TemperatureUnits(prefix):
     markup = ReplyKeyboardMarkup()
-    markup.row(str_ChangingPrefix + prefix + str_Celsius, str_ChangingPrefix + prefix + str_Fahrenheit, str_ChangingPrefix + prefix + str_Kelvin)
+    markup.row(str_ChangingPrefix + prefix + Temperature.Celsius, str_ChangingPrefix + prefix + Temperature.Fahrenheit, str_ChangingPrefix + prefix + Temperature.Kelvin)
     return markup
 
 @bot.message_handler(commands=["converter"])
@@ -152,25 +149,36 @@ def sendAnswer(message):
                 currentConverter = CurrencyRates()
                 what_changed_str = getConverterChangedString(str_Currency)
 
-            elif m == str_InputUnitPrefix + str_Celsius:
-                currentTemperatureInputUnit = Temperature.Celsius
-                what_changed_str = getInputUnitChangedString(str_Celsius, str_Temperature)
-            elif m == str_InputUnitPrefix + str_Fahrenheit:
-                currentTemperatureInputUnit = Temperature.Fahrenheit
-                what_changed_str = getInputUnitChangedString(str_Fahrenheit, str_Temperature)
-            elif m == str_InputUnitPrefix + str_Kelvin:
-                currentTemperatureInputUnit = Temperature.Kelvin
-                what_changed_str = getInputUnitChangedString(str_Kelvin, str_Temperature)
+            elif m.startswith(str_InputUnitPrefix):
+                _inUnit = m[len(str_InputUnitPrefix):len(m)]
 
-            elif m == str_OutputUnitPrefix + str_Celsius:
-                currentTemperatureOutputUnit = Temperature.Celsius
-                what_changed_str = getOutputUnitChangedString(str_Celsius, str_Temperature)
-            elif m == str_OutputUnitPrefix + str_Fahrenheit:
-                currentTemperatureOutputUnit = Temperature.Fahrenheit
-                what_changed_str = getOutputUnitChangedString(str_Fahrenheit, str_Temperature)
-            elif m == str_OutputUnitPrefix + str_Kelvin:
-                currentTemperatureOutputUnit = Temperature.Kelvin
-                what_changed_str = getOutputUnitChangedString(str_Kelvin, str_Temperature)
+                if hasattr(Temperature, _inUnit):
+                    currentTemperatureInputUnit = _inUnit
+                    what_changed_str = getInputUnitChangedString(_inUnit, str_Temperature)
+                elif hasattr(Mass, _inUnit):
+                    currentMassInputUnit = _inUnit
+                    what_changed_str = getInputUnitChangedString(_inUnit, str_Mass)
+                elif _inUnit in currencies:
+                    currentCurrencyInputUnit = _inUnit
+                    what_changed_str = getInputUnitChangedString(_inUnit, str_Currency)
+                else:
+                    return
+
+            elif m.startswith(str_OutputUnitPrefix):
+                _outUnit = m[len(str_OutputUnitPrefix):len(m)]
+
+                if hasattr(Temperature, _outUnit):
+                    currentTemperatureOutputUnit = _outUnit
+                    what_changed_str = getOutputUnitChangedString(_outUnit, str_Temperature)
+                elif hasattr(Mass, _outUnit):
+                    currentMassOutputUnit = _outUnit
+                    what_changed_str = getOutputUnitChangedString(_outUnit, str_Mass)
+                elif _outUnit in currencies:
+                    currentCurrencyOutputUnit = _outUnit
+                    what_changed_str = getOutputUnitChangedString(_outUnit, str_Currency)
+                else:
+                    return
+            
             else:
                 return
 
