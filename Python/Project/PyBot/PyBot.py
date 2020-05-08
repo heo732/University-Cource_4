@@ -13,6 +13,8 @@ import simplejson as json
 token = open("token.txt").read()
 bot = telebot.TeleBot(token)
 
+#TODO: keep dictionary(chat.id => selectedParameters) to provide separate settings per each chat.
+
 currentConverter = TemperatureConverter()
 currentTemperatureInputUnit = Temperature.Fahrenheit
 currentTemperatureOutputUnit = Temperature.Celsius
