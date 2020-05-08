@@ -8,6 +8,7 @@ from ConvertersLogic.Converters.TemperatureConverter import TemperatureConverter
 from ConvertersLogic.Enums.Mass import Mass
 from ConvertersLogic.Converters.MassConverter import MassConverter
 from forex_python.converter import CurrencyRates
+import simplejson as json
 
 token = open("token.txt").read()
 bot = telebot.TeleBot(token)
@@ -19,7 +20,7 @@ currentMassInputUnit = Mass.Pound
 currentMassOutputUnit = Mass.Kilogram
 currentCurrencyInputUnit = "USD"
 currentCurrencyOutputUnit = "EUR"
-currencies = ["USD", "EUR"]
+currencies = list(map(lambda x: x["cc"], json.loads(open("C:\\Users\\abuzhak\\AppData\\Local\\Programs\\Python\\Python38-32\\Lib\\site-packages\\forex_python\\raw_data\\currencies.json").read())))
 
 str_SomethingWrong = "Something wrong."
 str_InputUnitPrefix = "in_"
@@ -62,6 +63,12 @@ def getKeyboardMarkup_MassUnits(prefix):
     markup.add(*list(map(lambda x: str_ChangingPrefix + prefix + str(x), Mass().__dir__())))
     return markup
 
+def getKeyboardMarkup_CurrencyUnits(prefix):
+    markup = ReplyKeyboardMarkup()
+    markup.row_width = 3
+    markup.add(*list(map(lambda x: str_ChangingPrefix + prefix + str(x), currencies)))
+    return markup
+
 @bot.message_handler(commands=["converter"])
 def selectConverterType(message):
     try:
@@ -79,8 +86,7 @@ def selectInputUnit(message):
         elif type(currentConverter) is MassConverter:
             markup = getKeyboardMarkup_MassUnits(str_InputUnitPrefix)
         elif type(currentConverter) is CurrencyRates:
-            #markup = getKeyboardMarkup_CurrencyUnits(str_InputUnitPrefix)
-            pass
+            markup = getKeyboardMarkup_CurrencyUnits(str_InputUnitPrefix)
         else:
             bot.send_message(message.chat.id, str_SomethingWrong, reply_markup=markup)
 
@@ -98,8 +104,7 @@ def selectOutputUnit(message):
         elif type(currentConverter) is MassConverter:
             markup = getKeyboardMarkup_MassUnits(str_OutputUnitPrefix)
         elif type(currentConverter) is CurrencyRates:
-            #markup = getKeyboardMarkup_CurrencyUnits(str_OutputUnitPrefix)
-            pass
+            markup = getKeyboardMarkup_CurrencyUnits(str_OutputUnitPrefix)
         else:
             bot.send_message(message.chat.id, str_SomethingWrong, reply_markup=markup)
 
