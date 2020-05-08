@@ -1,4 +1,4 @@
-import os, sys, wpf
+import os, sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "..\\..\\..\\Project"))
 
 from ViewModels.ViewModelBase import ViewModelBase
@@ -7,14 +7,34 @@ from ConvertersLogic.Enums.Temperature import Temperature
 from ConvertersLogic.Enums.Mass import Mass
 from ConvertersLogic.Converters.TemperatureConverter import TemperatureConverter
 from ConvertersLogic.Converters.MassConverter import MassConverter
-from System.Windows import MessageBox
 
 class MainWindowViewModel(ViewModelBase):
     def __init__(self):
         ViewModelBase.__init__(self)
-        self.WindowTitle = ""
-        self.ChangeWindowTitleCommand = Command(self.setWindowTitle)
 
-    def setWindowTitle(self):
-        self.WindowTitle = "HELLO"
-        self.RaisePropertyChanged("WindowTitle")
+        self.ConvertTemperatureCommand = Command(self.convertTemperatureAction)
+        self.ConvertMassCommand = Command(self.convertMassAction)
+
+        self.SelectedIndex_InputUnitTemperature = 1
+        self.SelectedIndex_OutputUnitTemperature = 0
+
+        self.SelectedIndex_InputUnitMass = 8
+        self.SelectedIndex_OutputUnitMass = 1
+
+    def convertTemperatureAction(self):
+        try:
+            inputUnitTemperature = Temperature().__dir__()[self.SelectedIndex_InputUnitTemperature]
+            outputUnitTemperature = Temperature().__dir__()[self.SelectedIndex_OutputUnitTemperature]
+            self.OutputValueTemperature = TemperatureConverter().convert(float(self.InputValueTemperature), inputUnitTemperature, outputUnitTemperature)
+        except Exception:
+            self.OutputValueTemperature = "NaN"
+        self.RaisePropertyChanged("OutputValueTemperature")
+
+    def convertMassAction(self):
+        try:
+            inputUnitMass = Mass().__dir__()[self.SelectedIndex_InputUnitMass]
+            outputUnitMass = Mass().__dir__()[self.SelectedIndex_OutputUnitMass]
+            self.OutputValueMass = MassConverter().convert(float(self.InputValueMass), inputUnitMass, outputUnitMass)
+        except Exception:
+            self.OutputValueMass = "NaN"
+        self.RaisePropertyChanged("OutputValueMass")
