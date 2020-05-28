@@ -1,0 +1,41 @@
+﻿<Window x:Class="QAHelper.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QAHelper.Views"
+        xmlns:WPF="clr-namespace:QAHelper.WPF"
+        xmlns:Enums="clr-namespace:QAHelper.Enums"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Settings" Height="200" Width="400">
+
+    <Window.Icon>
+        <BitmapImage UriSource="pack://application:,,,/QAHelper;component/Images/question.png"/>
+    </Window.Icon>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Image recognition language:" ToolTip="Uses on loading from images." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" DisplayMemberPath="DisplayName" ItemsSource="{WPF:EnumToItemsSource {x:Type Enums:RecognitionLanguage}}" SelectedValue="{Binding SelectedRecognitionLanguage}" SelectedValuePath="Value" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Punctuation:" ToolTip="Punctuation strings separated by spacebar." VerticalAlignment="Center" Margin="10"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Punctuation, Mode=TwoWay, Delay=10}" Height="25" Margin="10"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Search key words in:" ToolTip="Uses in searching by key words." HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" DisplayMemberPath="DisplayName" ItemsSource="{WPF:EnumToItemsSource {x:Type Enums:KeyWordsSearchType}}" SelectedValue="{Binding KeyWordsSearchType}" SelectedValuePath="Value" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10"/>
+        
+        <!-- TODO: DarkTheme, ProgramLanguage. -->
+
+        <!-- This need to enable close window by Escape. -->
+        <Button IsCancel="True" Width="0" Height="0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderThickness="0"/>
+    </Grid>
+
+</Window>
