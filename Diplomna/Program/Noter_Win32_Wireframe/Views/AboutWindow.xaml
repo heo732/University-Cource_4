@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:QAHelper.Views"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Title="About" Height="300" Width="300">
+        Title="Про Записник" Height="300" Width="300">
 
     <Window.Icon>
         <BitmapImage UriSource="pack://application:,,,/QAHelper;component/Images/question.png"/>
@@ -21,11 +21,11 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Questions &amp; Answers Helper" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+        <TextBlock Grid.Row="0" Text="Записник" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
         <TextBlock Grid.Row="1" Text="{Binding ToolVersion, Mode=OneTime}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" TextDecorations="Underline"/>
-        <TextBlock Grid.Row="2" Text="Helper for displaying, saving, loading and editing of some questions and answers." HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontStyle="Italic"/>
+        <TextBlock Grid.Row="2" Text="Інструмент для зручного керування нотатками. Надає широкий набір можливостей." HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontStyle="Italic"/>
         <TextBlock Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Run Text="support: " FontStyle="Italic"/>
+            <Run Text="підтримка: " FontStyle="Italic"/>
             <Hyperlink Command="{Binding SupportCommand}">
                 <Run Text="{Binding SupportEmail, Mode=OneTime}"/>
             </Hyperlink>
