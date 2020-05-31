@@ -92,6 +92,11 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Utils\DefaultAppHelper.cs" />
+    <Compile Include="Utils\FileHelper.cs" />
+    <Compile Include="Utils\DirectoryHelper.cs" />
+    <Compile Include="Utils\MicrophoneHelper.cs" />
+    <Compile Include="Utils\CameraHelper.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
